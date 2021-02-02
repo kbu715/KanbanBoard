@@ -6,6 +6,21 @@ import { DragDropContext } from "react-beautiful-dnd";
 function App() {
   const [data, setData] = useState(initialData);
 
+  const onDragStart = () => {
+    //TODO:
+    document.body.style.color = "hotpink";
+    document.body.style.transition = `background-color 0.2s ease`;
+  };
+
+  const onDragUpdate = (update) => {
+    const { destination } = update;
+
+    const opacity = destination
+      ? destination.index / Object.keys(data.tasks).length
+      : 0;
+    document.body.style.backgroundColor = `rgba(153,141,217, ${opacity})`;
+  };
+
   const onDragEnd = (result) => {
     //TODO: reorder out column
     const { destination, source, draggableId } = result;
@@ -41,10 +56,16 @@ function App() {
     };
 
     setData(newData);
+    document.body.style.backgroundColor = "inherit";
+    document.body.style.color = "inherit";
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
+      onDragUpdate={onDragUpdate}
+    >
       {data.columnOrder.map((columnId) => {
         const column = data.columns[columnId];
         const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);

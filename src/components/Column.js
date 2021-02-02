@@ -13,6 +13,8 @@ const Title = styled.h3`
   padding: 8px;
   font-weight: bold;
   text-align: center;
+  font-size: 2em;
+  margin: 0;
 `;
 const TaskList = styled.div`
   padding: 8px;

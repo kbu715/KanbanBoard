@@ -8,7 +8,7 @@ const TaskContainer = styled.div`
   padding: 10px 20px;
   margin: 20px;
   text-align: center;
-  background-color: ${(props) => (props.isDragging ? "lightgreen" : "white")};
+  background-color: ${(props) => (props.isDragging ? "skyblue" : "white")};
 `;
 
 const Task = ({ task, index }) => {
