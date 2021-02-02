@@ -11,13 +11,23 @@ const Container = styled.div`
 function App() {
   const [data, setData] = useState(initialData);
 
-  const onDragStart = () => {
+  const onDragStart = (start, provided) => {
+    provided.announce(
+      `You have lifted the task in position ${start.source.index + 1}`
+    );
+
     //TODO:
     document.body.style.color = "hotpink";
     document.body.style.transition = `background-color 0.2s ease`;
   };
 
-  const onDragUpdate = (update) => {
+  const onDragUpdate = (update, provided) => {
+    const message = update.destination
+      ? `You have moved the task to position ${update.destination.index + 1}`
+      : `You are currently not over a droppable area`;
+
+    provided.announce(message);
+
     const { destination } = update;
 
     const opacity = destination
@@ -26,7 +36,15 @@ function App() {
     document.body.style.backgroundColor = `rgba(153,141,217, ${opacity})`;
   };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result, provided) => {
+    const message = result.destination
+      ? `You have moved the task from position
+      ${result.source.index + 1} to ${result.destination.index + 1}`
+      : `The task has been returned to its starting position of
+      ${result.source.index + 1}`;
+
+    provided.announce(message);
+
     //TODO: reorder out column
     const { destination, source, draggableId } = result;
 
