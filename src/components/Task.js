@@ -6,7 +6,7 @@ const TaskContainer = styled.div`
   border-radius: 4px;
   border: 1px solid lightgrey;
   padding: 10px 20px;
-  margin: 20px;
+  margin: 0 20px 10px;
   text-align: center;
   background-color: ${(props) => (props.isDragging ? "skyblue" : "white")};
   display: flex;
@@ -26,6 +26,7 @@ const Task = ({ task, index }) => {
       {(provided, snapshot) => (
         <TaskContainer
           {...provided.draggableProps}
+          {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >

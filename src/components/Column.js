@@ -8,18 +8,25 @@ const Container = styled.div`
   border: 1px solid lightgrey;
   background-color: #efefef;
   border-radius: 4px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
 `;
 const Title = styled.h3`
   padding: 8px;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   font-size: 2em;
-  margin: 0;
+  margin: 10px 0 0 20px;
+  font-style: italic;
 `;
 const TaskList = styled.div`
   padding: 8px;
   background-color: ${(props) =>
     props.isDraggingOver ? "#0066ff" : "#efefef"};
+  min-height: 200px;
+  flex-grow: 1;
+  transition: background-color 0.2s ease;
 `;
 
 const Column = ({ column, tasks }) => {

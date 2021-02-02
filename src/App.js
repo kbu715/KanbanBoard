@@ -2,6 +2,11 @@ import initialData from "./initialData";
 import React, { useState } from "react";
 import Column from "./components/Column";
 import { DragDropContext } from "react-beautiful-dnd";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+`;
 
 function App() {
   const [data, setData] = useState(initialData);
@@ -36,25 +41,59 @@ function App() {
       return;
     }
 
-    const column = data.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
+    const start = data.columns[source.droppableId];
+    const finish = data.columns[destination.droppableId];
 
-    newTaskIds.splice(source.index, 1); //from the first arg index, remove 1 item.
-    newTaskIds.splice(destination.index, 0, draggableId); // destination.index 위치에 draggableId 삽입
+    if (start === finish) {
+      const newTaskIds = Array.from(start.taskIds);
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds, // taskIds만 교체
+      newTaskIds.splice(source.index, 1); //from the first arg index, remove 1 item.
+      newTaskIds.splice(destination.index, 0, draggableId); // destination.index 위치에 draggableId 삽입
+
+      const newColumn = {
+        ...start,
+        taskIds: newTaskIds, // taskIds만 교체
+      };
+
+      const newData = {
+        ...data,
+        columns: {
+          ...data.columns,
+          [newColumn.id]: newColumn,
+        },
+      };
+
+      setData(newData);
+      document.body.style.backgroundColor = "inherit";
+      document.body.style.color = "inherit";
+      return;
+    }
+
+    // Moving from one list to another
+    const startTaskIds = Array.from(start.taskIds);
+    startTaskIds.splice(source.index, 1);
+    //column one
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    };
+
+    const finishTaskIds = Array.from(finish.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    //column another
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
     };
 
     const newData = {
       ...data,
       columns: {
         ...data.columns,
-        [newColumn.id]: newColumn,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
       },
     };
-
     setData(newData);
     document.body.style.backgroundColor = "inherit";
     document.body.style.color = "inherit";
@@ -66,12 +105,14 @@ function App() {
       onDragStart={onDragStart}
       onDragUpdate={onDragUpdate}
     >
-      {data.columnOrder.map((columnId) => {
-        const column = data.columns[columnId];
-        const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+      <Container>
+        {data.columnOrder.map((columnId) => {
+          const column = data.columns[columnId];
+          const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
 
-        return <Column key={column.id} column={column} tasks={tasks} />;
-      })}
+          return <Column key={column.id} column={column} tasks={tasks} />;
+        })}
+      </Container>
     </DragDropContext>
   );
 }
