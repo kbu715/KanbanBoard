@@ -30,6 +30,7 @@ const TaskList = styled.div`
 `;
 
 const Column = ({ column, tasks }) => {
+  // console.log("column", column);
   return (
     <Container>
       <Title>{column.title}</Title>
@@ -46,7 +47,7 @@ const Column = ({ column, tasks }) => {
             {/* {tasks.map((task, idx) => (
               <Task key={task.id} task={task} index={idx} />
             ))} */}
-            <InnerList tasks={tasks} />
+            <InnerList tasks={tasks} columnId={column.id} />
             {provided.placeholder}
           </TaskList>
         )}
