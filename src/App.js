@@ -4,8 +4,35 @@ import Column from "./components/Column";
 import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 
+const AppboardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 100px;
+`;
+
 const Container = styled.div`
   display: flex;
+`;
+
+const HeaderItem = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const ButtonCallCancel = styled.button`
+  margin-left: 200px;
+  min-width: 200px;
+  padding: 10px 20px;
+  background-color: #ab47bc;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  &:focus,
+  &:active,
+  &:hover {
+    outline: none;
+  }
 `;
 
 function App() {
@@ -122,20 +149,26 @@ function App() {
   };
 
   return (
-    <DragDropContext
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      onDragUpdate={onDragUpdate}
-    >
-      <Container>
-        {data.columnOrder.map((columnId) => {
-          const column = data.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+    <AppboardContainer>
+      <HeaderItem>
+        <input />
+        <ButtonCallCancel>콜풀기</ButtonCallCancel>
+      </HeaderItem>
+      <DragDropContext
+        onDragEnd={onDragEnd}
+        onDragStart={onDragStart}
+        onDragUpdate={onDragUpdate}
+      >
+        <Container>
+          {data.columnOrder.map((columnId) => {
+            const column = data.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
 
-          return <Column key={column.id} column={column} tasks={tasks} />;
-        })}
-      </Container>
-    </DragDropContext>
+            return <Column key={column.id} column={column} tasks={tasks} />;
+          })}
+        </Container>
+      </DragDropContext>
+    </AppboardContainer>
   );
 }
 
