@@ -8,7 +8,12 @@ const TaskContainer = styled.div`
   padding: 10px 20px;
   margin: 0 20px 10px;
   text-align: center;
-  background-color: ${(props) => (props.isDragging ? "skyblue" : "white")};
+  background-color: ${(props) =>
+    props.isDragDisabled
+      ? "lightgrey"
+      : props.isDragging
+      ? "skyblue"
+      : "white"};
   display: flex;
 `;
 
@@ -21,14 +26,20 @@ const Handle = styled.div`
 `;
 
 const Task = ({ task, index }) => {
+  // const isDragDisabled = task.id === "task-1";
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable
+      draggableId={task.id}
+      index={index}
+      // isDragDisabled={isDragDisabled} //conditionally allow movement
+    >
       {(provided, snapshot) => (
         <TaskContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
+          // isDragDisabled={isDragDisabled}
         >
           <Handle {...provided.dragHandleProps} />
           {task.id}-{task.content}

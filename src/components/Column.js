@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Task from "./Task";
+// import Task from "./Task";
 import { Droppable } from "react-beautiful-dnd";
-
+import InnerList from "./InnerList";
 const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
@@ -33,16 +33,20 @@ const Column = ({ column, tasks }) => {
   return (
     <Container>
       <Title>{column.title}</Title>
-      <Droppable droppableId={column.id}>
+      <Droppable
+        droppableId={column.id}
+        // type={column.id === "column-3" ? "done" : "active"} // column-3 에는 drop 비활성화
+      >
         {(provided, snapshot) => (
           <TaskList
             ref={provided.innerRef}
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            {tasks.map((task, idx) => (
+            {/* {tasks.map((task, idx) => (
               <Task key={task.id} task={task} index={idx} />
-            ))}
+            ))} */}
+            <InnerList tasks={tasks} />
             {provided.placeholder}
           </TaskList>
         )}

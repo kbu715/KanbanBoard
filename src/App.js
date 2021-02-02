@@ -31,6 +31,8 @@ function App() {
     const { destination, source, draggableId } = result;
 
     if (!destination) {
+      document.body.style.backgroundColor = "inherit";
+      document.body.style.color = "inherit";
       return;
     }
 
@@ -38,6 +40,8 @@ function App() {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
+      document.body.style.backgroundColor = "inherit";
+      document.body.style.color = "inherit";
       return;
     }
 
