@@ -24,17 +24,20 @@ const TaskContainer = styled.div`
       ? "#e57373"
       : "#999999"};
   display: flex;
-  width: 200px;
+  flex-direction: column;
+  min-width: 200px;
+  max-width: 300px;
+  font-size: 20px;
   color: white;
 `;
 
-const Handle = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: #fafafa;
-  border-radius: 4px;
-  margin-right: 8px;
-`;
+// const Handle = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   background-color: #fafafa;
+//   border-radius: 4px;
+//   margin-right: 8px;
+// `;
 
 const Task = ({ task, index, columnId }) => {
   // const isDragDisabled = task.id === "task-1";
@@ -58,8 +61,31 @@ const Task = ({ task, index, columnId }) => {
             columnId={columnId}
             // isDragDisabled={isDragDisabled}
           >
-            <Handle {...provided.dragHandleProps} />
-            {task.content}
+            {/* <Handle {...provided.dragHandleProps} /> */}
+            {/* {task.content} */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "10px",
+              }}
+            >
+              <span>
+                {task.category}-{task.seq}
+              </span>
+              <span>{columnId}</span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                textAlign: "left",
+              }}
+            >
+              <div style={{ marginBottom: "10px" }}>{task.address}</div>
+              <div>{task.description}</div>
+            </div>
           </TaskContainer>
         );
       }}

@@ -55,12 +55,12 @@ function App() {
 
     provided.announce(message);
 
-    const { destination } = update;
+    // const { destination } = update;
 
-    const opacity = destination
-      ? destination.index / Object.keys(data.tasks).length
-      : 0;
-    document.body.style.backgroundColor = `rgba(153,141,217, ${opacity})`;
+    // const opacity = destination
+    //   ? destination.index / Object.keys(data.tasks).length
+    //   : 0;
+    document.body.style.backgroundColor = `rgba(153,141,217,1)`;
   };
 
   const onDragEnd = (result, provided) => {
