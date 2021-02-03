@@ -20,18 +20,22 @@ const HeaderItem = styled.div`
 `;
 
 const ButtonCallCancel = styled.button`
+  display: block;
   margin-left: 200px;
   min-width: 200px;
   padding: 10px 20px;
-  background-color: #ab47bc;
+  background-color: #8e44ad;
   border: none;
   border-radius: 5px;
   color: white;
+  cursor: pointer;
   font-size: 20px;
-  &:focus,
-  &:active,
-  &:hover {
+  &:focus {
     outline: none;
+    background-color: #5e3370;
+  }
+  &:hover {
+    background-color: #732d91;
   }
 `;
 
